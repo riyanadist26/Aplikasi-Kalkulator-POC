@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kalkulator Pupuk Organik Cair (POC)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-emerald-50 via-slate-50 to-slate-100 text-slate-800">
+  <main class="w-full max-w-5xl mx-auto px-4 py-6 md:py-10">
+    <!-- ================= HOMEPAGE / LANDING ================= -->
+    <section id="homeScreen" class="space-y-8 md:space-y-10">
+      <!-- HERO -->
+      <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+        <div class="flex-1">
+          <div class="inline-flex items-center gap-2 rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 mb-3 border border-emerald-200">
+            <span class="text-xs font-semibold uppercase tracking-[0.16em]">PocMaster.id</span>
+          </div>
+
+          <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+            Ubah Sampah Dapur Menjadi
+            <span class="block text-emerald-600">
+              Pupuk Organik Cair Berkualitas
+            </span>
+          </h1>
+
+          <p class="mt-3 text-sm md:text-base text-slate-600">
+            Aplikasi ini membantumu menghitung <span class="font-semibold">pengenceran POC</span>,
+            <span class="font-semibold">kebutuhan POC per tanaman</span>, dan memahami alur
+            pembuatan POC dari sampah dapur secara sederhana, rapi, dan terukur.
+          </p>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              id="btnMasukApp"
+              class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm md:text-base font-semibold px-5 py-2.5 shadow-lg shadow-emerald-500/30 transition"
+            >
+              Mulai Hitung POC
+            </button>
+            <button
+              id="btnScrollLangkah"
+              class="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white/70 hover:bg-white text-xs md:text-sm font-medium px-4 py-2 shadow-sm"
+            >
+              Lihat langkah pembuatannya
+            </button>
+          </div>
+
+          <p class="mt-2 text-[11px] md:text-xs text-slate-500">
+            Direkomendasikan untuk praktikum, proyek sekolah, maupun kebun rumahan.
+          </p>
+        </div>
+
+        <!-- Ilustrasi sederhana / preview hasil -->
+        <div class="flex-1 w-full md:max-w-sm">
+          <div class="rounded-3xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 p-1 shadow-xl">
+            <div class="rounded-2xl bg-slate-950/90 p-4 space-y-3 text-slate-50 text-xs">
+              <div class="flex items-center justify-between">
+                <p class="text-[10px] uppercase tracking-[0.24em] text-emerald-300">
+                  preview kalkulator
+                </p>
+                <span class="text-[10px] bg-emerald-900/60 px-2 py-0.5 rounded-full">
+                  realtime
+                </span>
+              </div>
+              <p>
+                <span class="text-slate-300">Pengenceran POC</span><br />
+                500 ml POC pekat<br />
+                ➜ + 1000 ml air<br />
+                = <span class="font-bold text-emerald-300">1500 ml POC siap pakai</span>
+              </p>
+              <hr class="border-slate-700" />
+              <p>
+                <span class="text-slate-300">Kebutuhan tanaman</span><br />
+                Tanaman sedang: <span class="font-semibold">250 ml</span> / tanaman<br />
+                10 tanaman ➜ <span class="font-bold text-emerald-300">2500 ml</span> / siram
+              </p>
+              <p class="text-[10px] text-slate-400">
+                Semua angka bisa disesuaikan dengan kondisi nyata di kebunmu.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BENEFIT / FITUR SINGKAT -->
+      <section class="grid md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-2xl border border-emerald-100 p-4 shadow-sm">
+          <h2 class="text-sm font-semibold text-emerald-700 mb-1">
+            Hitung Pengenceran POC
+          </h2>
+          <p class="text-xs text-slate-600">
+            Masukkan volume POC pekat, aplikasi akan menghitung kebutuhan air
+            dan total POC encer siap pakai (3× pengenceran).
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-amber-100 p-4 shadow-sm">
+          <h2 class="text-sm font-semibold text-amber-700 mb-1">
+            Kebutuhan POC untuk Tanaman
+          </h2>
+          <p class="text-xs text-slate-600">
+            Estimasi kebutuhan POC per penyiraman berdasarkan ukuran dan jumlah tanaman.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+          <h2 class="text-sm font-semibold text-slate-800 mb-1">
+            Edukatif & Praktis
+          </h2>
+          <p class="text-xs text-slate-600">
+            Cocok sebagai media pembelajaran di sekolah, kelompok tani, maupun eksperimen pribadi.
+          </p>
+        </div>
+      </section>
+
+      <!-- DAFTAR BAHAN -->
+      <section class="bg-white rounded-2xl border border-slate-200 p-4 md:p-6 shadow-sm" id="bahanSection">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <div>
+            <h2 class="text-base md:text-lg font-semibold text-slate-900">
+              Bahan yang Perlu Disiapkan
+            </h2>
+            <p class="text-xs md:text-sm text-slate-600">
+              Pastikan semua bahan ini sudah siap sebelum mulai menghitung dan praktik membuat POC.
+            </p>
+          </div>
+          <span class="hidden md:inline-flex text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+            Langkah 1 dari 3 • Persiapan
+          </span>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 text-xs md:text-sm">
+          <!-- 2 Galon -->
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50/70 p-3">
+            <p class="text-[11px] font-semibold text-emerald-800 mb-1 uppercase tracking-wide">
+              Wadah Utama
+            </p>
+            <p class="font-semibold text-emerald-900">2 Galon Le Minerale</p>
+            <p class="mt-1 text-slate-700 text-xs">
+              1 galon untuk wadah atas (sampah + tanah), 1 galon sebagai penampung POC di bawah.
+              Ujung galon atas menyentuh dasar galon bawah.
+            </p>
+          </div>
+
+          <!-- Tanah & Sampah Dapur -->
+          <div class="rounded-xl border border-amber-100 bg-amber-50/80 p-3 space-y-2">
+            <div>
+              <p class="text-[11px] font-semibold text-amber-800 mb-1 uppercase tracking-wide">
+                Media Tanah
+              </p>
+              <p class="font-semibold text-amber-900">Tanah gembur</p>
+              <p class="mt-1 text-slate-700 text-xs">
+                Minimal 2 genggam di awal, lalu sedikit tanah setiap kali menambah sampah dapur.
+              </p>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-amber-800 mb-1 uppercase tracking-wide">
+                Sampah Dapur Organik
+              </p>
+              <p class="text-slate-700 text-xs">
+                Sisa sayur, buah, kulit, batang sayur. Hindari daging, minyak, dan plastik agar
+                tidak bau dan tidak mengundang maggot.
+              </p>
+            </div>
+          </div>
+
+          <!-- Air & Alat -->
+          <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-2">
+            <div>
+              <p class="text-[11px] font-semibold text-slate-700 mb-1 uppercase tracking-wide">
+                Air Bersih
+              </p>
+              <p class="font-semibold text-slate-900">500 ml per hari</p>
+              <p class="mt-1 text-slate-700 text-xs">
+                Digunakan setelah 3 minggu, untuk menyiram kompos setiap hari hingga wadah bawah penuh.
+              </p>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-slate-700 mb-1 uppercase tracking-wide">
+                Alat Pendukung
+              </p>
+              <p class="text-slate-700 text-xs">
+                Cutter/pisau, solder untuk membuat lubang, spidol penanda. Opsional: corong,
+                botol penyimpanan POC, dan sarung tangan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p class="text-xs md:text-sm text-slate-600">
+            Jika bahan sudah siap, kamu bisa mengikuti <span class="font-semibold text-emerald-700">
+            langkah pembuatan</span> di bawah ini, lalu gunakan kalkulator untuk menyesuaikan
+            volume POC sesuai kebutuhanmu.
+          </p>
+          <button
+            id="btnScrollLangkah2"
+            class="inline-flex items-center justify-center rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs md:text-sm font-semibold px-4 py-2 shadow"
+          >
+            Lihat Langkah Pembuatan POC
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP-BY-STEP CARD -->
+      <section id="stepSection" class="bg-white rounded-2xl border border-emerald-100 p-4 md:p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base md:text-lg font-semibold text-slate-900">
+              Langkah Pembuatan Pupuk Organik Cair (POC)
+            </h2>
+            <p class="text-xs md:text-sm text-slate-600">
+              Ringkasan alur pembuatan POC dari narasi: mulai dari memodifikasi wadah,
+              mengisi sampah, fermentasi, hingga POC siap pakai.
+            </p>
+          </div>
+          <span class="hidden md:inline-flex text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+            Langkah 2 dari 3 • Proses
+          </span>
+        </div>
+
+        <!-- Cards: scrollable on mobile -->
+        <div class="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0">
+          <!-- STEP 1 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-emerald-800 uppercase tracking-wide">
+                Langkah 1
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                Wadah
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-emerald-900">
+              Membuat Sistem 2 Galon
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Potong galon atas sehingga ujungnya menyentuh dasar galon bawah dan dapat
+              mengunci dengan pas. Buat lubang-lubang di sisi galon atas sebagai tempat
+              keluar masuk air dan nutrisi.
+            </p>
+          </article>
+
+          <!-- STEP 2 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-amber-100 bg-amber-50/80 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-amber-800 uppercase tracking-wide">
+                Langkah 2
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500 text-white">
+                Isi awal
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-amber-900">
+              Mengisi Tanah & Sampah Dapur
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Masukkan ±2 genggam tanah ke galon atas. Setiap ada sampah dapur, potong
+              kecil-kecil, masukkan ke wadah, tambahkan sedikit tanah, lalu aduk. Ulangi
+              sampai wadah penuh, lalu hentikan penambahan sampah.
+            </p>
+          </article>
+
+          <!-- STEP 3 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-slate-200 bg-slate-50 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">
+                Langkah 3
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-700 text-slate-50">
+                Fermentasi
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-slate-900">
+              Fermentasi 3 Minggu
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Setelah penuh, diamkan wadah di tempat teduh selama ±3 minggu. Jangan
+              menambah sampah lagi. Jika muncul tanaman liar di permukaan, cabut agar tidak
+              mengambil nutrisi kompos.
+            </p>
+          </article>
+
+          <!-- STEP 4 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-emerald-800 uppercase tracking-wide">
+                Langkah 4
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                Penyiraman
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-emerald-900">
+              Menyiram 500 ml per Hari
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Setelah jadi kompos, siram permukaan kompos dengan air 500 ml per hari.
+              Jangan ditambah terlalu banyak dalam satu hari agar kualitas POC tetap baik.
+              Lanjutkan sampai wadah bawah penuh cairan coklat gelap.
+            </p>
+          </article>
+
+          <!-- STEP 5 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-emerald-100 bg-emerald-50 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-emerald-800 uppercase tracking-wide">
+                Langkah 5
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500 text-white">
+                Panen POC
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-emerald-900">
+              Memanen POC Pekat
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Cairan yang terkumpul di galon bawah berwarna coklat gelap. Inilah POC pekat.
+              Ambil sesuai kebutuhan, misalnya 500 ml untuk satu batch pengenceran.
+            </p>
+          </article>
+
+          <!-- STEP 6 -->
+          <article class="min-w-[210px] md:min-w-0 rounded-2xl border border-amber-100 bg-amber-50 p-3 flex flex-col">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-semibold text-amber-800 uppercase tracking-wide">
+                Langkah 6
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500 text-white">
+                Penggunaan
+              </span>
+            </div>
+            <h3 class="text-sm font-semibold text-amber-900">
+              Mengencerkan & Menggunakan POC
+            </h3>
+            <p class="mt-1 text-xs text-slate-700">
+              Encerkan 500 ml POC pekat dengan 1000 ml air (total 1500 ml).
+              Gunakan untuk menyiram tanaman. Frekuensi dan dosis disesuaikan
+              dengan kesuburan media dan ukuran tanaman.
+            </p>
+          </article>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-1">
+          <p class="text-[11px] md:text-xs text-slate-500">
+            Semua langkah di atas dapat dijelaskan di laporan / skripsi sebagai alur kerja pembuatan POC.
+            Kalkulator di halaman berikutnya membantu menghitung bagian pengenceran dan kebutuhan POC.
+          </p>
+          <button
+            id="btnMasukApp3"
+            class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-semibold px-4 py-2 shadow"
+          >
+            Lanjut ke Kalkulator POC
+          </button>
+        </div>
+      </section>
+
+      <!-- VIDEO TUTORIAL YOUTUBE -->
+      <section class="mt-2 bg-white rounded-2xl border border-red-200 p-4 md:p-5 shadow-sm">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <h2 class="text-base md:text-lg font-semibold text-slate-900">
+              Video Tutorial Pembuatan POC (Referensi)
+            </h2>
+            <p class="text-xs md:text-sm text-slate-600">
+              Tonton video berikut untuk melihat proses pembuatan pupuk organik cair
+              (POC) dari sampah dapur secara lengkap.
+            </p>
+          </div>
+          <span class="hidden md:inline-flex text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100">
+            Langkah 3 dari 3 • Tutorial
+          </span>
+        </div>
+
+        <!-- Responsive YouTube Embed -->
+        <div class="relative w-full rounded-xl overflow-hidden shadow" style="padding-bottom: 56.25%;">
+          <iframe
+            class="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube.com/embed/OnvcUF0yXlc"
+            title="Tutorial YouTube POC"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+    </section>
+
+    <!-- ================= HALAMAN APLIKASI KALKULATOR ================= -->
+    <section id="appScreen" class="mt-4 md:mt-8 hidden">
+      <header class="mb-6 flex items-center justify-between gap-3">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold text-emerald-700">
+            Aplikasi Kalkulator Pupuk Organik Cair
+          </h1>
+          <p class="mt-1 text-xs md:text-sm text-slate-600">
+            Gunakan kalkulator di bawah ini untuk menghitung pengenceran POC
+            dan kebutuhan POC per penyiraman berdasarkan langkah-langkah yang sudah kamu ikuti.
+          </p>
+        </div>
+        <button
+          id="btnKembaliHome"
+          class="hidden md:inline-flex items-center rounded-xl border border-slate-300 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100"
+        >
+          ⬅ Kembali ke Homepage
+        </button>
+      </header>
+
+      <section class="grid md:grid-cols-2 gap-6">
+        <!-- KALKULATOR PENGENCERAN -->
+        <div class="bg-white rounded-2xl shadow p-4 md:p-6 border border-emerald-100">
+          <h2 class="text-lg font-semibold text-emerald-700 mb-1">
+            1. Kalkulator Pengenceran POC
+          </h2>
+          <p class="text-xs text-slate-500 mb-4">
+            Masukkan volume POC <span class="font-semibold">pekat</span> yang kamu miliki.
+            Sistem akan menghitung kebutuhan air dan total POC siap pakai (3x pengenceran).
+          </p>
+
+          <!-- Input area (warna beda) -->
+          <div class="rounded-xl bg-emerald-50 p-4 mb-4">
+            <label for="inputPocPekat" class="block text-sm font-medium text-emerald-900 mb-1">
+              Volume POC Pekat (ml)
+            </label>
+            <input
+              id="inputPocPekat"
+              type="number"
+              min="1"
+              class="w-full rounded-xl border border-emerald-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400"
+              placeholder="misal: 500"
+              value="500"
+            />
+            <p class="mt-1 text-[11px] text-emerald-700">
+              Di contoh di narasi/video: digunakan 500 ml POC pekat.
+            </p>
+
+            <button
+              id="btnHitungPengenceran"
+              class="mt-3 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2 transition"
+            >
+              Hitung Pengenceran
+            </button>
+
+            <p
+              id="errorPengenceran"
+              class="mt-2 text-[11px] text-red-600 hidden"
+            ></p>
+          </div>
+
+          <!-- Output area (warna beda) -->
+          <div class="rounded-xl bg-slate-900 text-slate-50 p-4 text-sm space-y-2">
+            <h3 class="font-semibold text-emerald-300">Hasil Pengenceran:</h3>
+            <p>
+              POC Pekat:
+              <span id="outPocPekat" class="font-semibold text-emerald-200">500</span>
+              <span class="text-[11px] uppercase tracking-wide">ml</span>
+            </p>
+            <p>
+              Tambahkan Air:
+              <span id="outAirPengenceran" class="font-semibold text-emerald-200">1000</span>
+              <span class="text-[11px] uppercase tracking-wide">ml</span>
+            </p>
+            <hr class="border-slate-700" />
+            <p>
+              Total POC Encer Siap Pakai:
+              <span id="outTotalPocEncer" class="font-bold text-emerald-300">1500</span>
+              <span class="text-[11px] uppercase tracking-wide">ml</span>
+            </p>
+            <p class="text-[11px] text-slate-300">
+              Rumus: POC Encer = POC Pekat × 3 &nbsp; | &nbsp; Air = POC Pekat × 2
+            </p>
+          </div>
+        </div>
+
+        <!-- KALKULATOR KEBUTUHAN PER PENYIRAMAN -->
+        <div class="bg-white rounded-2xl shadow p-4 md:p-6 border border-amber-100">
+          <h2 class="text-lg font-semibold text-amber-700 mb-1">
+            2. Kalkulator Kebutuhan POC per Penyiraman
+          </h2>
+          <p class="text-xs text-slate-500 mb-4">
+            Hitung estimasi kebutuhan POC <span class="font-semibold">encer</span>
+            untuk tanamanmu berdasarkan ukuran dan jumlah tanaman.
+          </p>
+
+          <!-- Input area -->
+          <div class="rounded-xl bg-amber-50 p-4 mb-4 space-y-3">
+            <div>
+              <label
+                for="selectUkuranTanaman"
+                class="block text-sm font-medium text-amber-900 mb-1"
+              >
+                Ukuran Tanaman
+              </label>
+              <select
+                id="selectUkuranTanaman"
+                class="w-full rounded-xl border border-amber-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+              >
+                <option value="kecil">Kecil (bibit / pot kecil)</option>
+                <option value="sedang" selected>Sedang (pot sedang / sayur)</option>
+                <option value="besar">Besar (tanaman buah, pohon kecil)</option>
+              </select>
+              <p class="mt-1 text-[11px] text-amber-700">
+                Rekomendasi kasar: kecil 100–150 ml, sedang 200–300 ml, besar 400–500 ml.
+              </p>
+            </div>
+
+            <div>
+              <label
+                for="inputJumlahTanaman"
+                class="block text-sm font-medium text-amber-900 mb-1"
+              >
+                Jumlah Tanaman
+              </label>
+              <input
+                id="inputJumlahTanaman"
+                type="number"
+                min="1"
+                class="w-full rounded-xl border border-amber-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
+                placeholder="misal: 10"
+                value="10"
+              />
+            </div>
+
+            <button
+              id="btnHitungKebutuhan"
+              class="mt-1 w-full rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-2 transition"
+            >
+              Hitung Kebutuhan POC
+            </button>
+
+            <p
+              id="errorKebutuhan"
+              class="mt-1 text-[11px] text-red-600 hidden"
+            ></p>
+          </div>
+
+          <!-- Output area -->
+          <div class="rounded-xl bg-slate-900 text-slate-50 p-4 text-sm space-y-2">
+            <h3 class="font-semibold text-amber-300">Estimasi Kebutuhan:</h3>
+            <p>
+              Dosis per Tanaman:
+              <span
+                id="outDosisPerTanaman"
+                class="font-semibold text-amber-200"
+                >250</span
+              >
+              <span class="text-[11px] uppercase tracking-wide">ml</span>
+            </p>
+            <p>
+              Jumlah Tanaman:
+              <span
+                id="outJumlahTanaman"
+                class="font-semibold text-amber-200"
+                >10</span
+              >
+              <span class="text-[11px] uppercase tracking-wide">tanaman</span>
+            </p>
+            <hr class="border-slate-700" />
+            <p>
+              Total POC Encer per Satu Kali Penyiraman:
+              <span
+                id="outTotalPocPerSiram"
+                class="font-bold text-amber-300"
+                >2500</span
+              >
+              <span class="text-[11px] uppercase tracking-wide">ml</span>
+            </p>
+            <p class="text-[11px] text-slate-300">
+              Catatan: ini hanya estimasi. Sesuaikan dengan kondisi media tanam &
+              respon tanaman.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- BONUS: info harian 500 ml -->
+      <section class="mt-6">
+        <div class="bg-white rounded-2xl shadow p-4 md:p-5 border border-slate-200">
+          <h2 class="text-sm md:text-base font-semibold text-slate-800 mb-2">
+            Catatan Proses Produksi POC (Info Tambahan)
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600">
+            Dari narasi: setelah kompos jadi, setiap hari disiram
+            <span class="font-semibold text-emerald-700">500 ml air</span>
+            sampai wadah bawah penuh. Aplikasi ini bisa dikembangkan lagi untuk:
+          </p>
+          <ul class="mt-2 text-xs md:text-sm text-slate-600 list-disc list-inside">
+            <li>Menambahkan input kapasitas wadah bawah (liter/ml).</li>
+            <li>Menghitung berapa hari yang dibutuhkan dengan penyiraman 500 ml/hari.</li>
+            <li>Mencatat history batch produksi POC (tanggal mulai, tanggal panen, kualitas).</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- ================= SCRIPT JS ================= -->
+  <script>
+    // DOM: homepage vs app
+    const homeScreen = document.getElementById("homeScreen");
+    const appScreen = document.getElementById("appScreen");
+
+    const btnMasukApp = document.getElementById("btnMasukApp");
+    const btnMasukApp2 = document.getElementById("btnScrollLangkah2"); // ini scroll ke langkah dulu
+    const btnMasukApp3 = document.getElementById("btnMasukApp3");
+    const btnKembaliHome = document.getElementById("btnKembaliHome");
+
+    const btnScrollLangkah = document.getElementById("btnScrollLangkah");
+    const bahanSection = document.getElementById("bahanSection");
+    const stepSection = document.getElementById("stepSection");
+
+    function bukaApp() {
+      homeScreen.classList.add("hidden");
+      appScreen.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function kembaliHome() {
+      appScreen.classList.add("hidden");
+      homeScreen.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function scrollKeBahan() {
+      if (!bahanSection) return;
+      bahanSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function scrollKeLangkah() {
+      if (!stepSection) return;
+      stepSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    btnMasukApp.addEventListener("click", bukaApp);
+    btnMasukApp3.addEventListener("click", bukaApp);
+    if (btnKembaliHome) {
+      btnKembaliHome.addEventListener("click", kembaliHome);
+    }
+
+    btnScrollLangkah.addEventListener("click", scrollKeLangkah);
+    btnMasukApp2.addEventListener("click", scrollKeLangkah);
+
+    // ========== KALKULATOR PENGENCERAN ==========
+    const inputPocPekat = document.getElementById("inputPocPekat");
+    const btnHitungPengenceran = document.getElementById("btnHitungPengenceran");
+    const errorPengenceran = document.getElementById("errorPengenceran");
+
+    const outPocPekat = document.getElementById("outPocPekat");
+    const outAirPengenceran = document.getElementById("outAirPengenceran");
+    const outTotalPocEncer = document.getElementById("outTotalPocEncer");
+
+    function hitungPengenceran() {
+      const nilai = parseFloat(inputPocPekat.value);
+
+      if (isNaN(nilai) || nilai <= 0) {
+        errorPengenceran.textContent =
+          "Masukkan volume POC pekat yang valid (lebih dari 0).";
+        errorPengenceran.classList.remove("hidden");
+        return;
+      }
+
+      errorPengenceran.classList.add("hidden");
+
+      const pocPekat = nilai;
+      const air = pocPekat * 2; // karena total 3x, air = 2 bagian
+      const total = pocPekat + air; // sama dengan pocPekat * 3
+
+      outPocPekat.textContent = pocPekat.toFixed(0);
+      outAirPengenceran.textContent = air.toFixed(0);
+      outTotalPocEncer.textContent = total.toFixed(0);
+    }
+
+    btnHitungPengenceran.addEventListener("click", hitungPengenceran);
+
+    // ========== KALKULATOR KEBUTUHAN PER PENYIRAMAN ==========
+    const selectUkuranTanaman = document.getElementById("selectUkuranTanaman");
+    const inputJumlahTanaman = document.getElementById("inputJumlahTanaman");
+    const btnHitungKebutuhan = document.getElementById("btnHitungKebutuhan");
+    const errorKebutuhan = document.getElementById("errorKebutuhan");
+
+    const outDosisPerTanaman = document.getElementById("outDosisPerTanaman");
+    const outJumlahTanaman = document.getElementById("outJumlahTanaman");
+    const outTotalPocPerSiram = document.getElementById("outTotalPocPerSiram");
+
+    function dapatkanDosisPerTanaman(ukuran) {
+      // Bisa disesuaikan dari hasil uji lapangan
+      switch (ukuran) {
+        case "kecil":
+          return 120; // ml (kisaran 100–150)
+        case "sedang":
+          return 250; // ml (kisaran 200–300)
+        case "besar":
+          return 450; // ml (kisaran 400–500)
+        default:
+          return 250;
+      }
+    }
+
+    function hitungKebutuhanPoc() {
+      const ukuran = selectUkuranTanaman.value;
+      const jumlah = parseInt(inputJumlahTanaman.value, 10);
+
+      if (isNaN(jumlah) || jumlah <= 0) {
+        errorKebutuhan.textContent =
+          "Masukkan jumlah tanaman yang valid (minimal 1).";
+        errorKebutuhan.classList.remove("hidden");
+        return;
+      }
+
+      errorKebutuhan.classList.add("hidden");
+
+      const dosisPerTanaman = dapatkanDosisPerTanaman(ukuran);
+      const total = dosisPerTanaman * jumlah;
+
+      outDosisPerTanaman.textContent = dosisPerTanaman.toFixed(0);
+      outJumlahTanaman.textContent = jumlah;
+      outTotalPocPerSiram.textContent = total.toFixed(0);
+    }
+
+    btnHitungKebutuhan.addEventListener("click", hitungKebutuhanPoc);
+
+    // Inisialisasi awal (biar waktu masuk app, hasil tidak kosong)
+    document.addEventListener("DOMContentLoaded", () => {
+      hitungPengenceran();
+      hitungKebutuhanPoc();
+    });
+  </script>
+</body>
+</html>
